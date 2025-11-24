@@ -6,11 +6,12 @@ import { useState, useEffect } from "react";
 import ListaProdutosCard from "./components/ListaProdutosCard";
 
 function App() {
+  const BASE_URL = 'https://product-price-back.vercel.app'
   const [produtos, setProdutos] = useState([]);
 
   useEffect(() => {
     async function load() {
-      const res = await fetch("http://localhost:8000/products");
+      const res = await fetch(`${BASE_URL}/products`);
       const data = await res.json();
       setProdutos(data);
     }
@@ -18,7 +19,7 @@ function App() {
   }, []);
 
   async function adicionarProduto(produto) {
-    const res = await fetch("http://localhost:8000/products", {
+    const res = await fetch(`${BASE_URL}/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(produto),
@@ -30,7 +31,7 @@ function App() {
   }
 
   async function editarProduto(id, updates) {
-    const res = await fetch(`http://localhost:8000/products/${id}`, {
+    const res = await fetch(`${BASE_URL}/products/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updates),
@@ -44,7 +45,7 @@ function App() {
   }
 
   async function deletarProduto(id) {
-    await fetch(`http://localhost:8000/products/${id}`, {
+    await fetch(`${BASE_URL}/products/${id}`, {
       method: "DELETE",
     });
 
