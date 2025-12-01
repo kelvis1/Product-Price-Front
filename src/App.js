@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import ListaProdutosCard from "./components/ListaProdutosCard";
 
 function App() {
-  const BASE_URL = 'https://product-price-back.vercel.app'
+  const BASE_URL = 'https://product-price-back.vercel.app';
   const [produtos, setProdutos] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,6 @@ function App() {
     });
 
     const novo = await res.json();
-
     setProdutos((prev) => [...prev, novo]);
   }
 
@@ -38,7 +37,6 @@ function App() {
     });
 
     const atualizado = await res.json();
-
     setProdutos((prev) =>
       prev.map((p) => (p.id === id ? atualizado : p))
     );
@@ -53,10 +51,7 @@ function App() {
   }
 
   const totalProdutos = produtos.length;
-  const totalItens = produtos.reduce(
-    (acc, p) => acc + Number(p.quantidade),
-    0
-  );
+  const totalItens = produtos.reduce((acc, p) => acc + Number(p.quantidade), 0);
   const valorTotal = produtos.reduce(
     (acc, p) => acc + Number(p.preco) * Number(p.quantidade),
     0
@@ -65,21 +60,46 @@ function App() {
   return (
     <>
       <Box sx={{ minHeight: "110vh", backgroundColor: "#eff6ff" }}>
-        <Box display="flex" gap={3} padding={2}>
-          
-          <Box width="35%">
+        
+        <Box
+          sx={{
+            display: "flex",
+            gap: 3,
+            padding: 2,
+            flexDirection: {
+              xs: "column",
+              md: "row",   
+            },
+          }}
+        >
+
+        
+          <Box
+            sx={{
+              width: {
+                xs: "100%", 
+                md: "35%",  
+              },
+            }}
+          >
             <Header />
-            <div>
-              <CardProduto onAdd={adicionarProduto} />
-              <ResumoCard
-                produtos={totalProdutos}
-                itens={totalItens}
-                valor={valorTotal}
-              />
-            </div>
+            <CardProduto onAdd={adicionarProduto} />
+            <ResumoCard
+              produtos={totalProdutos}
+              itens={totalItens}
+              valor={valorTotal}
+            />
           </Box>
 
-          <Box width="65%">
+         
+          <Box
+            sx={{
+              width: {
+                xs: "100%",  
+                md: "65%",   
+              },
+            }}
+          >
             <ListaProdutosCard
               produtos={produtos}
               onUpdate={(id, campo, valor) =>
