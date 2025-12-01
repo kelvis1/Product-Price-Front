@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import ResumoCard from "./components/ResumoCard";
 import { useState, useEffect } from "react";
 import ListaProdutosCard from "./components/ListaProdutosCard";
+import Footer from "./components/Footer";
+
 
 function App() {
   const BASE_URL = 'https://product-price-back.vercel.app';
@@ -110,6 +112,8 @@ function App() {
           </Box>
 
         </Box>
+
+        <Footer />
       </Box>
     </>
   );
